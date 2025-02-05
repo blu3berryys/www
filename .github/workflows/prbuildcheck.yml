@@ -1,4 +1,5 @@
 name: PR Build Check
+
 on:
   pull_request:
     types: [opened, synchronize, reopened]
@@ -6,8 +7,9 @@ on:
 jobs:
   upload:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -15,14 +17,14 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install pnpm
+      - name: Setup pnpm
         run: npm install -g pnpm
 
-      - name: Verify pnpm installation
+      - name: Print pnpm version
         run: pnpm --version
 
       - name: Install dependencies
         run: pnpm install --no-frozen-lockfile
 
-      - name: Build project
+      - name: Build
         run: pnpm run build
